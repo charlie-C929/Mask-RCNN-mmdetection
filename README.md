@@ -2,6 +2,7 @@
 
 1. download the checkpoint from:
 [epoch_3.pth](https://pan.quark.cn/s/30f1fec581d6)
+and put it into checkpoins/ folder.
 
 2. try the demo.
 
