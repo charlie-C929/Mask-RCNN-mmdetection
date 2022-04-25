@@ -31,13 +31,13 @@ assert os.path.exists(ort_custom_op_path)
 session_options = ort.SessionOptions()
 session_options.register_custom_ops_library(ort_custom_op_path)
 ## exported ONNX model with custom operators
-onnx_file = 'checkpoints/result.onnx'
+onnx_file = '../result.onnx'
 
 
 #time.sleep(10)
 sess = ort.InferenceSession(onnx_file, session_options)
 start = time.time()
-img = cv2.imread("/home/yi/Yi/mmdetection/Mask-RCNN-mmdetection/data/coco/000000017627.jpg")
+img = cv2.imread("/home/yi/Yi/mmdetection/Mask-RCNN-mmdetection/data/coco/000000001000.jpg")
 input_data = preprocess(img)
 onnx_results = sess.run(None, {'input' : input_data})
 end=time.time()
@@ -95,7 +95,8 @@ for index,box in enumerate(boxes):
             cv2.polylines(img, [contour], isClosed=True, color=(0, 0, 255), thickness=3)
    
 
-    alpha=0.8
+    alpha=0.8   
+    
     mask = mask.astype(bool)
     random_colors = np.array([0,255,255])
     img[mask] = img[mask] * (1 - alpha) + random_colors * alpha
