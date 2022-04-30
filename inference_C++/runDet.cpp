@@ -66,7 +66,7 @@ void PreProcess(const Mat& image, Mat& image_blob)
 int main()
 {
 
-    const char* model_path = "/home/yi/Yi/mmdetection/result.onnx";
+    const char* model_path = "/media/team515/xia/astudy/Deep_learning_code/Mask-RCNN-mmdetection/result.onnx";
    //environment （设置为VERBOSE（ORT_LOGGING_LEVEL_VERBOSE）时，方便控制台输出时看到是使用了cpu还是gpu执行）
 	Ort::Env env(ORT_LOGGING_LEVEL_WARNING, "OnnxModel");
 	Ort::SessionOptions session_options;
@@ -124,7 +124,7 @@ int main()
 
     
 	//加载图片
-	Mat img = imread("/home/yi/Yi/mmdetection/Mask-RCNN-mmdetection/data/coco/000000001000.jpg");
+	Mat img = imread("/media/team515/xia/astudy/Deep_learning_code/Mask-RCNN-mmdetection/data/coco/000000001000.jpg");
     int64_t H = img.rows;
     int64_t W = img.cols;
     std::cout << img.size() << endl;
