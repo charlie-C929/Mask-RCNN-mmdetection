@@ -1,0 +1,3 @@
+/home/yi/Yi/mmdetection/Mask-RCNN-mmdetection/inference_C++/build/CMakeFiles/edit_cache.dir
+/home/yi/Yi/mmdetection/Mask-RCNN-mmdetection/inference_C++/build/CMakeFiles/rebuild_cache.dir
+/home/yi/Yi/mmdetection/Mask-RCNN-mmdetection/inference_C++/build/CMakeFiles/runDet.dir

@@ -26,18 +26,21 @@ def preprocess(img):
     return data
 
 
+#TODO:
+onnx_file = '../result.onnx'
+img = cv2.imread("/home/yi/Yi/mmdetection/Mask-RCNN-mmdetection/data/coco/000000001000.jpg")
 ort_custom_op_path = get_onnxruntime_op_path()
+print(ort_custom_op_path)
+time.sleep(10)
 assert os.path.exists(ort_custom_op_path)
 session_options = ort.SessionOptions()
 session_options.register_custom_ops_library(ort_custom_op_path)
 ## exported ONNX model with custom operators
-onnx_file = '../result.onnx'
-
 
 #time.sleep(10)
 sess = ort.InferenceSession(onnx_file, session_options)
 start = time.time()
-img = cv2.imread("/home/yi/Yi/mmdetection/Mask-RCNN-mmdetection/data/coco/000000001000.jpg")
+
 input_data = preprocess(img)
 onnx_results = sess.run(None, {'input' : input_data})
 end=time.time()
