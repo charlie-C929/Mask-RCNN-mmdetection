@@ -71,11 +71,11 @@ python deployment/pytorch2onnx.py \
 
 #### (python) onnx_inference.py的使用      
 
-将onnx_inference.py中的onnx_file替换成.onnx文件输出的目录，例如“./result.onnx”，将测试图片的输入路径修改成自己的。然后执行：
+执行：
 
 ~~~shell
 # 执行测试
-python onnx_inference.py
+python onnx_inference.py {your pic} --model {your onnx model}
 ~~~
 
 #### (c++)runDet.cpp的使用方法
