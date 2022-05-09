@@ -1,13 +1,13 @@
 ## 基于MMdetection的Maskrcnn的实例语义分割与onnx模型的树莓派部署
 
-![image](./pics/title.png)
+![title](https://gitee.com/CN_13/images/raw/master/img/title.png)
 
 #### 通用的环境配置
 
 **1.Build custom operators for ONNX Runtime**
 在项目文件夹下通过git下载mmcv，例如：
 
-```python
+```shell
 # 切换到项目文件夹的路径
 cd /media/team515/xia/astudy/Deep_learning_code/Mask-RCNN-mmdetection
 # 先安装下载工具git
@@ -18,7 +18,7 @@ git clone https://github.com/open-mmlab/mmcv.git
 
 下载onnxruntime-linux ， 把 ONNXRUNTIME_DIR 添加到系统环境变量里：
 
-```python
+```shell
 # 先安装下载工具wget
 sudo apt install -y wget unzip
 # 下载onnxruntime-linux
@@ -37,7 +37,7 @@ source ~/.bashrc
 
 从源码安装mmcv：
 
-```python
+```shell
 # 切换到mmcv的安装目录
 cd mmcv
 pip install onnxruntime==1.8.1
@@ -49,7 +49,7 @@ pip install scikit-learn
 
 **2.安装mmdetction**
 
-```python
+```shell
 conda create -n open-mmlab python=3.7 -y
 conda activate open-mmlab
 conda install pytorch torchvision -c pytorch
@@ -58,7 +58,7 @@ pip install mmdet
 
 **3.mmdetection pytorch权重转换成onnx**
 
-```python
+```shell
 python deployment/pytorch2onnx.py \
     configs/mask_rcnn_r50_fpn_mstrain-poly_3x_coco.py \
     checkpoints/latest.pth \
@@ -73,7 +73,7 @@ python deployment/pytorch2onnx.py \
 
 将onnx_inference.py中的onnx_file替换成.onnx文件输出的目录，例如“./result.onnx”，将测试图片的输入路径修改成自己的。然后执行：
 
-~~~python
+~~~shell
 # 执行测试
 python onnx_inference.py
 ~~~
@@ -82,14 +82,14 @@ python onnx_inference.py
 
 首先，安装cmake。在项目文件夹下：
 
-```python
+```shell
 sudo apt install -y g++
 sudo apt install -y cmake
 ```
 
 安装opencv：
 
-```python
+```shell
 wget -O opencv.zip https://github.com/opencv/opencv/archive/4.x.zip
 unzip opencv.zip
 mv opencv-4.x opencv
@@ -103,7 +103,30 @@ sudo make install
 
 运行：
 
-```python
+```shell
+# 回到项目文件夹下
+cd ..
+# 进入inference_C++文件夹下
+cd inference_C++
+# 创建build
+mkdir build
+cd build
+cmake ..
+make
+# 运行生成的可执行文件runDet
+./runDet
+```
+
+## (C++)How to inference on the Raspberry pi 3B/4B?
+
+- One thing you should notice is that the release of onnxruntime can't be use on the Raspberry Pi with the architecture of  arvm7l, what you should do is rebuild the onnxruntime from the sourse code.
+
+- [Build the onnxruntime from sourse](./inference_C++/config.md) for preparation.
+- Download the [release of onnxruntime](https://github.com/microsoft/onnxruntime/releases) and replace the .so files in /lib folder with the .so files you just built from the preparation.
+
+- Run
+
+```shell
 # 回到项目文件夹下
 cd ..
 # 进入inference_C++文件夹下
