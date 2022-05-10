@@ -69,7 +69,7 @@ python deployment/pytorch2onnx.py \
       model.test_cfg.deploy_nms_pre=-1 \
 ```
 
-#### (python) onnx_inference.py的使用      
+#### (Python) onnx_inference.py的使用      
 
 执行：
 
@@ -78,7 +78,7 @@ python deployment/pytorch2onnx.py \
 python onnx_inference.py {your pic} --model {your onnx model}
 ~~~
 
-#### (c++)runDet.cpp的使用方法
+#### (C++)runDet.cpp的使用方法
 
 首先，安装cmake。在项目文件夹下：
 

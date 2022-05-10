@@ -14,9 +14,8 @@
 #include "roi_align.cpp"
 #include "grid_sample.h"
 #include "gridSample.cpp"
+#include "argparse.hpp"
 
-//temp
-#include "malloc.h"
 
 using namespace cv;     //当定义这一行后，cv::imread可以直接写成imread
 using namespace std;
@@ -63,10 +62,30 @@ void PreProcess(const Mat& image, Mat& image_blob)
 	image_blob = outt;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
+    argparse::ArgumentParser program("program_name");
 
-    const char* model_path = "/media/team515/xia/astudy/Deep_learning_code/Mask-RCNN-mmdetection/result.onnx";
+    program.add_argument("pic")
+        .help("The picture you want to inference");
+    program.add_argument("--model")
+        .required()
+        .help("The model path you want to use to inference");
+
+    try {
+        program.parse_args(argc, argv);
+    }
+    catch (const std::runtime_error& err) {
+        std::cerr << err.what() << std::endl;
+        std::cerr << program;
+        std::exit(1);
+    }
+
+    const char* model_path = program.get<std::string>("--model").data();
+    std::cout << model_path << endl;
+
+    auto pic_path = program.get<std::string>("pic");
+    
    //environment （设置为VERBOSE（ORT_LOGGING_LEVEL_VERBOSE）时，方便控制台输出时看到是使用了cpu还是gpu执行）
 	Ort::Env env(ORT_LOGGING_LEVEL_WARNING, "OnnxModel");
 	Ort::SessionOptions session_options;
@@ -124,7 +143,7 @@ int main()
 
     
 	//加载图片
-	Mat img = imread("/media/team515/xia/astudy/Deep_learning_code/Mask-RCNN-mmdetection/data/coco/000000001000.jpg");
+	Mat img = imread(pic_path);
     int64_t H = img.rows;
     int64_t W = img.cols;
     std::cout << img.size() << endl;
